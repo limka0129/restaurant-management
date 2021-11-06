@@ -23,8 +23,8 @@ export default {
   menu: {
     locale: true
   },
-  title: 'Ant Design Pro',
-  pwa: false,
+  title: 'HeyCafe',
+  pwa: true,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }
