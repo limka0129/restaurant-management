@@ -5,7 +5,7 @@ module.exports = {
   },
   'extends': [
     'plugin:vue/strongly-recommended',
-    '@vue/standard'
+    // '@vue/standard'
   ],
   rules: {
     'no-console': 'off',

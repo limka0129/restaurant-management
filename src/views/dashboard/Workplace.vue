@@ -7,7 +7,7 @@
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
+            {{ timeFix }}，{{ $store.getters.nickname }}<span class="welcome-text">，{{ welcome }}</span>
           </div>
           <div>餐厅店长 | 嘿店餐饮连锁 - 天津南开大学店</div>
         </div>

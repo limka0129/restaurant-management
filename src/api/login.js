@@ -29,7 +29,6 @@ const userApi = {
 //     url: userApi.Login,
 //     method: 'post',
 //     data: parameter
-//   })
 // }
 
 export function getSmsCaptcha (parameter) {

@@ -41,7 +41,7 @@
             </a-input-password>
           </a-form-item>
         </a-tab-pane>
-        <a-tab-pane key="tab2" :tab="$t('user.login.tab-login-mobile')">
+        <a-tab-pane disabled key="tab2" :tab="$t('user.login.tab-login-mobile')+'（暂不支持）'">
           <a-form-item>
             <a-input size="large" type="text" :placeholder="$t('user.login.mobile.placeholder')" v-decorator="['mobile', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: $t('user.login.mobile.placeholder') }], validateTrigger: 'change'}]">
               <a-icon slot="prefix" type="mobile" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -114,11 +114,12 @@
 </template>
 
 <script>
-import md5 from 'md5'
+// import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
-import { timeFix } from '@/utils/util'
+import { timeFix, welcome } from '@/utils/util'
 import { getSmsCaptcha, get2step } from '@/api/login'
+
 
 export default {
   components: {
@@ -172,51 +173,50 @@ export default {
     },
     handleSubmit (e) {
       e.preventDefault()
-      this.Login({
-        username: 123,
-        password: 456
-      }).then(response => {
-        this.$router.push({ name: 'Analysis' }, () => {
-          console.log('onComplete')
-          this.$notification.success({
-            message: '欢迎',
-            description: `${timeFix()}，欢迎回来`
-          })
-        })
-      }).catch(err => {
-        this.requestFailed(err)
-      })
-      // console.log(this)
-      // const {
-      //   form: { validateFields },
-      //   state,
-      //   customActiveKey,
-      //   Login
-      // } = this
-      //
-      // state.loginBtn = true
-      //
-      // const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
-      //
-      // validateFields(validateFieldsKey, { force: true }, (err, values) => {
-      //   if (!err) {
-      //     console.log('login form', values)
-      //     const loginParams = { ...values }
-      //     delete loginParams.username
-      //     loginParams[!state.loginType ? 'email' : 'username'] = values.username
-      //     loginParams.password = md5(values.password)
-      //     Login(loginParams)
-      //       .then((res) => this.loginSuccess(res))
-      //       .catch(err => this.requestFailed(err))
-      //       .finally(() => {
-      //         state.loginBtn = false
-      //       })
-      //   } else {
-      //     setTimeout(() => {
-      //       state.loginBtn = false
-      //     }, 600)
-      //   }
+      // this.Login({
+      //   username: 123,
+      //   password: 456
+      // }).then(response => {
+      //   this.loginSuccess(response)
+      // }).catch(err => {
+      //   this.requestFailed(err)
       // })
+
+      const {
+        form: { validateFields },
+        state,
+        customActiveKey,
+        Login
+      } = this
+
+      state.loginBtn = true
+
+      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+
+      validateFields(validateFieldsKey, { force: true }, (err, values) => {
+        // console.log('err:', err)
+        console.log(values)
+        if (!err) {
+          // console.log('login form', values)
+          const loginParams = { ...values }
+          // delete loginParams.username
+          // loginParams[!state.loginType ? 'email' : 'username'] = values.username
+          // loginParams.password = values.password
+          Login(loginParams)
+            .then(() => {
+              this.$store.commit('SET_NAME',{ name: loginParams.username, welcome: welcome() })
+              this.loginSuccess()
+            })
+            .catch(err => this.requestFailed(err))
+            .finally(() => {
+              state.loginBtn = false
+            })
+        } else {
+          setTimeout(() => {
+            state.loginBtn = false
+          }, 600)
+        }
+      })
     },
     getCaptcha (e) {
       e.preventDefault()
@@ -261,8 +261,7 @@ export default {
         this.stepCaptchaVisible = false
       })
     },
-    loginSuccess (res) {
-      console.log(res)
+    loginSuccess () {
       // check res.homePage define, set $router.push name res.homePage
       // Why not enter onComplete
       /*
@@ -288,7 +287,7 @@ export default {
       this.isLoginError = true
       this.$notification['error']({
         message: '错误',
-        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
+        description: err || '请求出现错误，请稍后再试',
         duration: 4
       })
     }

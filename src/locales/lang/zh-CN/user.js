@@ -23,7 +23,7 @@ export default {
   'user.register.sign-in': '使用已有账户登录',
   'user.register-result.msg': '你的账户：{email} 注册成功',
   'user.register-result.activation-email':
-    '激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。',
+    '激活邮件没有发送到你的邮箱中，这条文案是逗你玩的。请不要及时登录邮箱并点击邮件中的链接激活帐户。',
   'user.register-result.back-home': '返回首页',
   'user.register-result.view-mailbox': '查看邮箱',
   'user.email.required': '请输入邮箱地址！',

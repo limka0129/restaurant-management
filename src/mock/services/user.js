@@ -754,18 +754,18 @@ const userNav = options => {
     },
 
     // account
-    {
-      name: 'account',
-      parentId: 0,
-      id: 10028,
-      meta: {
-        title: '个人页',
-        icon: 'user',
-        show: true
-      },
-      redirect: '/account/center',
-      component: 'RouteView'
-    },
+    // {
+    //   name: 'account',
+    //   parentId: 0,
+    //   id: 10028,
+    //   meta: {
+    //     title: '个人页',
+    //     icon: 'user',
+    //     show: true
+    //   },
+    //   redirect: '/account/center',
+    //   component: 'RouteView'
+    // },
     // {
     //   name: 'center',
     //   parentId: 10028,
@@ -777,19 +777,19 @@ const userNav = options => {
     //   component: 'AccountCenter'
     // },
     // 特殊三级菜单
-    {
-      name: 'settings',
-      parentId: 10028,
-      id: 10030,
-      meta: {
-        title: '个人设置',
-        hideHeader: true,
-        hideChildren: true,
-        show: true
-      },
-      redirect: '/account/settings/base',
-      component: 'AccountSettings'
-    },
+    // {
+    //   name: 'settings',
+    //   parentId: 10028,
+    //   id: 10030,
+    //   meta: {
+    //     title: '个人设置',
+    //     hideHeader: true,
+    //     hideChildren: true,
+    //     show: true
+    //   },
+    //   redirect: '/account/settings/base',
+    //   component: 'AccountSettings'
+    // },
     {
       name: 'BasicSetting',
       path: '/account/settings/base',
