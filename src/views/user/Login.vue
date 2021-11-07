@@ -172,36 +172,51 @@ export default {
     },
     handleSubmit (e) {
       e.preventDefault()
-      const {
-        form: { validateFields },
-        state,
-        customActiveKey,
-        Login
-      } = this
-
-      state.loginBtn = true
-
-      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
-
-      validateFields(validateFieldsKey, { force: true }, (err, values) => {
-        if (!err) {
-          console.log('login form', values)
-          const loginParams = { ...values }
-          delete loginParams.username
-          loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          loginParams.password = md5(values.password)
-          Login(loginParams)
-            .then((res) => this.loginSuccess(res))
-            .catch(err => this.requestFailed(err))
-            .finally(() => {
-              state.loginBtn = false
-            })
-        } else {
-          setTimeout(() => {
-            state.loginBtn = false
-          }, 600)
-        }
+      this.Login({
+        username: 123,
+        password: 456
+      }).then(response => {
+        this.$router.push({ name: 'Analysis' }, () => {
+          console.log('onComplete')
+          this.$notification.success({
+            message: '欢迎',
+            description: `${timeFix()}，欢迎回来`
+          })
+        })
+      }).catch(err => {
+        this.requestFailed(err)
       })
+      // console.log(this)
+      // const {
+      //   form: { validateFields },
+      //   state,
+      //   customActiveKey,
+      //   Login
+      // } = this
+      //
+      // state.loginBtn = true
+      //
+      // const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      //
+      // validateFields(validateFieldsKey, { force: true }, (err, values) => {
+      //   if (!err) {
+      //     console.log('login form', values)
+      //     const loginParams = { ...values }
+      //     delete loginParams.username
+      //     loginParams[!state.loginType ? 'email' : 'username'] = values.username
+      //     loginParams.password = md5(values.password)
+      //     Login(loginParams)
+      //       .then((res) => this.loginSuccess(res))
+      //       .catch(err => this.requestFailed(err))
+      //       .finally(() => {
+      //         state.loginBtn = false
+      //       })
+      //   } else {
+      //     setTimeout(() => {
+      //       state.loginBtn = false
+      //     }, 600)
+      //   }
+      // })
     },
     getCaptcha (e) {
       e.preventDefault()

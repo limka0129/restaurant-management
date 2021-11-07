@@ -5,7 +5,7 @@ const info = options => {
   console.log('options', options)
   const userInfo = {
     id: '4291d7da9005377ec9aec4a71ea837f',
-    name: '天野远子',
+    name: '刘志昊',
     username: 'admin',
     password: '',
     avatar: '/avatar2.jpg',
@@ -490,17 +490,17 @@ const userNav = options => {
       },
       component: 'Workplace'
     },
-    {
-      name: 'monitor',
-      path: 'https://www.baidu.com/',
-      parentId: 1,
-      id: 3,
-      meta: {
-        title: '监控页（外部）',
-        target: '_blank',
-        show: true
-      }
-    },
+    // {
+    //   name: 'monitor',
+    //   path: 'https://www.baidu.com/',
+    //   parentId: 1,
+    //   id: 3,
+    //   meta: {
+    //     title: '监控页（外部）',
+    //     target: '_blank',
+    //     show: true
+    //   }
+    // },
     {
       name: 'Analysis',
       parentId: 1,
@@ -514,17 +514,17 @@ const userNav = options => {
     },
 
     // form
-    {
-      name: 'form',
-      parentId: 0,
-      id: 10,
-      meta: {
-        icon: 'form',
-        title: '表单页'
-      },
-      redirect: '/form/base-form',
-      component: 'RouteView'
-    },
+    // {
+    //   name: 'form',
+    //   parentId: 0,
+    //   id: 10,
+    //   meta: {
+    //     icon: 'form',
+    //     title: '表单页'
+    //   },
+    //   redirect: '/form/base-form',
+    //   component: 'RouteView'
+    // },
     {
       name: 'basic-form',
       parentId: 10,
@@ -554,18 +554,18 @@ const userNav = options => {
     },
 
     // list
-    {
-      name: 'list',
-      parentId: 0,
-      id: 10010,
-      meta: {
-        icon: 'table',
-        title: '列表页',
-        show: true
-      },
-      redirect: '/list/table-list',
-      component: 'RouteView'
-    },
+    // {
+    //   name: 'list',
+    //   parentId: 0,
+    //   id: 10010,
+    //   meta: {
+    //     icon: 'table',
+    //     title: '列表页',
+    //     show: true
+    //   },
+    //   redirect: '/list/table-list',
+    //   component: 'RouteView'
+    // },
     {
       name: 'table-list',
       parentId: 10010,
@@ -640,18 +640,18 @@ const userNav = options => {
     },
 
     // profile
-    {
-      name: 'profile',
-      parentId: 0,
-      id: 10018,
-      meta: {
-        title: '详情页',
-        icon: 'profile',
-        show: true
-      },
-      redirect: '/profile/basic',
-      component: 'RouteView'
-    },
+    // {
+    //   name: 'profile',
+    //   parentId: 0,
+    //   id: 10018,
+    //   meta: {
+    //     title: '详情页',
+    //     icon: 'profile',
+    //     show: true
+    //   },
+    //   redirect: '/profile/basic',
+    //   component: 'RouteView'
+    // },
     {
       name: 'basic',
       parentId: 10018,
@@ -674,18 +674,18 @@ const userNav = options => {
     },
 
     // result
-    {
-      name: 'result',
-      parentId: 0,
-      id: 10021,
-      meta: {
-        title: '结果页',
-        icon: 'check-circle-o',
-        show: true
-      },
-      redirect: '/result/success',
-      component: 'PageView'
-    },
+    // {
+    //   name: 'result',
+    //   parentId: 0,
+    //   id: 10021,
+    //   meta: {
+    //     title: '结果页',
+    //     icon: 'check-circle-o',
+    //     show: true
+    //   },
+    //   redirect: '/result/success',
+    //   component: 'PageView'
+    // },
     {
       name: 'success',
       parentId: 10021,
@@ -710,18 +710,18 @@ const userNav = options => {
     },
 
     // Exception
-    {
-      name: 'exception',
-      parentId: 0,
-      id: 10024,
-      meta: {
-        title: '异常页',
-        icon: 'warning',
-        show: true
-      },
-      redirect: '/exception/403',
-      component: 'RouteView'
-    },
+    // {
+    //   name: 'exception',
+    //   parentId: 0,
+    //   id: 10024,
+    //   meta: {
+    //     title: '异常页',
+    //     icon: 'warning',
+    //     show: true
+    //   },
+    //   redirect: '/exception/403',
+    //   component: 'RouteView'
+    // },
     {
       name: '403',
       parentId: 10024,
@@ -766,16 +766,16 @@ const userNav = options => {
       redirect: '/account/center',
       component: 'RouteView'
     },
-    {
-      name: 'center',
-      parentId: 10028,
-      id: 10029,
-      meta: {
-        title: '个人中心',
-        show: true
-      },
-      component: 'AccountCenter'
-    },
+    // {
+    //   name: 'center',
+    //   parentId: 10028,
+    //   id: 10029,
+    //   meta: {
+    //     title: '个人中心',
+    //     show: true
+    //   },
+    //   component: 'AccountCenter'
+    // },
     // 特殊三级菜单
     {
       name: 'settings',

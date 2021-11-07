@@ -9,7 +9,7 @@
           <div class="content-title">
             {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
           </div>
-          <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+          <div>餐厅店长 | 嘿店餐饮连锁 - 天津南开大学店</div>
         </div>
       </div>
     </template>
@@ -207,7 +207,7 @@ export default {
     }),
     currentUser () {
       return {
-        name: 'Serati Ma',
+        name: this.nickname,
         avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
       }
     },
@@ -228,6 +228,7 @@ export default {
     })
   },
   mounted () {
+    // console.log('workplace mounted')
     this.getProjects()
     this.getActivity()
     this.getTeams()

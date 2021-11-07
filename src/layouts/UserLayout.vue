@@ -10,7 +10,7 @@
           <div class="header">
             <a href="/">
               <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
+              <span class="title">HeyCafe</span>
             </a>
           </div>
           <div class="desc">
@@ -27,7 +27,7 @@
             <a href="_self">条款</a>
           </div>
           <div class="copyright">
-            Copyright &copy; 2018 vueComponent
+            SE Programming Work 2021
           </div>
         </div>
       </div>

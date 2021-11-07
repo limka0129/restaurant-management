@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 const userApi = {
-  Login: '/auth/login',
+  // Login: '/auth/login',
   Logout: '/auth/logout',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
@@ -24,13 +24,13 @@ const userApi = {
  * @param parameter
  * @returns {*}
  */
-export function login (parameter) {
-  return request({
-    url: userApi.Login,
-    method: 'post',
-    data: parameter
-  })
-}
+// export function login (parameter) {
+//   return request({
+//     url: userApi.Login,
+//     method: 'post',
+//     data: parameter
+//   })
+// }
 
 export function getSmsCaptcha (parameter) {
   return request({
