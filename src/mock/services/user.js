@@ -474,7 +474,7 @@ const userNav = options => {
       id: 1,
       meta: {
         icon: 'dashboard',
-        title: '仪表盘',
+        title: '餐厅数据监控',
         show: true
       },
       component: 'RouteView',
@@ -512,6 +512,41 @@ const userNav = options => {
       component: 'Analysis',
       path: '/dashboard/analysis'
     },
+
+
+
+
+    // 迎宾员host
+    {
+      name: 'host',
+      parentId: 0,
+      id: 5001,
+      meta: {
+        icon: 'user',
+        title: '迎宾员专用'
+      },
+      redirect: '/host/overview',
+      component: 'RouteView'
+    },
+    {
+      name: 'information-overview',
+      parentId: 5001,
+      id: 5002,
+      meta: {
+        title: '餐厅状态总览'
+      },
+      component: 'BasicForm'
+    },
+
+
+
+
+
+
+
+
+
+
 
     // form
     // {
