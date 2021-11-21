@@ -10,6 +10,7 @@ import dashboard from './en-US/dashboard'
 import form from './en-US/form'
 import result from './en-US/result'
 import account from './en-US/account'
+import HeyCafe from './en-US/HeyCafe'
 
 const components = {
   antLocale: antdEnUS,
@@ -30,5 +31,6 @@ export default {
   ...dashboard,
   ...form,
   ...result,
-  ...account
+  ...account,
+  ...HeyCafe
 }

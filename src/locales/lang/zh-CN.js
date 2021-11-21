@@ -9,6 +9,7 @@ import dashboard from './zh-CN/dashboard'
 import form from './zh-CN/form'
 import result from './zh-CN/result'
 import account from './zh-CN/account'
+import HeyCafe from './zh-CN/HeyCafe'
 
 const components = {
   antLocale: antd,
@@ -29,5 +30,6 @@ export default {
   ...dashboard,
   ...form,
   ...result,
-  ...account
+  ...account,
+  ...HeyCafe
 }

@@ -143,16 +143,6 @@ export default {
       }
     }
   },
-  // created () {
-  //   get2step({ })
-  //     .then(res => {
-  //       this.requiredTwoStepCaptcha = res.result.stepCode
-  //     })
-  //     .catch(() => {
-  //       this.requiredTwoStepCaptcha = false
-  //     })
-  //   // this.requiredTwoStepCaptcha = true
-  // },
   methods: {
     ...mapActions(['Logout']),
     // handler
@@ -172,14 +162,6 @@ export default {
     },
     handleSubmit (e) {
       e.preventDefault()
-      // this.Login({
-      //   username: 123,
-      //   password: 456
-      // }).then(response => {
-      //   this.loginSuccess(response)
-      // }).catch(err => {
-      //   this.requestFailed(err)
-      // })
 
       const {
         form: { validateFields },
@@ -192,16 +174,10 @@ export default {
       const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
-        // console.log('err:', err)
-        console.log(values)
         if (!err) {
-          // console.log('login form', values)
           const loginParams = { ...values }
-          // delete loginParams.username
-          // loginParams[!state.loginType ? 'email' : 'username'] = values.username
-          // loginParams.password = values.password
+          console.log('ready to login',loginParams)
           login(loginParams)
-          // Login(loginParams)
             .then(() => {
               this.$store.commit('SET_NAME',{ name: loginParams.username, welcome: welcome() })
               this.loginSuccess()
@@ -261,18 +237,8 @@ export default {
       })
     },
     loginSuccess () {
-      // check res.homePage define, set $router.push name res.homePage
-      // Why not enter onComplete
-      /*
-      this.$router.push({ name: 'analysis' }, () => {
-        console.log('onComplete')
-        this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
-        })
-      })
-      */
-      this.$router.push({ path: '/' })
+      // this.$router.push({ path: '/' })
+      this.$router.push({ name: 'Analysis' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
         this.$notification.success({

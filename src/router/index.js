@@ -41,33 +41,20 @@ const routes = [
         ]
       },
 
-      // Exception
+      // hostOnly
       {
-        path: '/exception',
-        name: 'exception',
+        path: '/host',
+        name: 'host',
+        redirect: '/host/overview',
         component: RouteView,
-        redirect: '/exception/403',
-        hidden: true,
-        meta: { title: 'menu.exception', icon: 'warning' },
+        meta: { title: 'hc.hostOnly', keepAlive: true, icon: 'user' },
         children: [
           {
-            path: '/exception/403',
-            name: 'Exception403',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
-            meta: { title: 'menu.exception.not-permission' }
+            path: '/host/overview/',
+            name: 'Overview_hc',
+            component: () => import('@/HeyCafe/pages/Overview'),
+            meta: { title: 'hc.overview', keepAlive: true }
           },
-          {
-            path: '/exception/404',
-            name: 'Exception404',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
-            meta: { title: 'menu.exception.not-find' }
-          },
-          {
-            path: '/exception/500',
-            name: 'Exception500',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
-            meta: { title: 'menu.exception.server-error' }
-          }
         ]
       },
     ]

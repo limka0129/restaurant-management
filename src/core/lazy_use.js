@@ -3,6 +3,7 @@ import Vue from 'vue'
 // base library
 import {
   ConfigProvider,
+  Carousel,
   Layout,
   Input,
   InputNumber,
@@ -99,6 +100,7 @@ Vue.use(Result)
 Vue.use(Statistic)
 Vue.use(Descriptions)
 Vue.use(Space)
+Vue.use(Carousel)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message
