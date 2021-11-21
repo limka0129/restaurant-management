@@ -1,10 +1,7 @@
 import storage from 'store'
-import { login, getInfo, logout } from '@/api/login'
+import { getInfo } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { welcome } from '@/utils/util'
-// import request from '@/utils/request'
 import { axios } from '@/utils/request'
-import { URLSearchParams } from 'core-js/modules/web.url-search-params'
 import qs from 'qs'
 
 const user = {
@@ -99,26 +96,14 @@ const user = {
     },
 
     // 登出
-    Logout ({ commit, state }) {
-      // return new Promise((resolve) => {
-      //   logout(state.token).then(() => {
-      //     console.log('logout调用成功了')
-      //     commit('SET_TOKEN', '')
-      //     commit('SET_NAME', '')
-      //     commit('SET_ROLES', [])
-      //     storage.remove(ACCESS_TOKEN)
-      //     resolve()
-      //   }).catch((err) => {
-      //     console.log('logout fail:', err)
-      //   }).finally(() => {
-      //   })
-      // })
+    Logout ({ commit }) {
       return new Promise(resolve => {
         console.log('logout调用成功了')
         commit('SET_TOKEN', '')
         commit('SET_NAME', '')
         commit('SET_ROLES', [])
         storage.remove(ACCESS_TOKEN)
+        localStorage.removeItem('HeyCafeLoginToken')
         resolve()
       })
     }

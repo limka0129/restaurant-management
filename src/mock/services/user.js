@@ -467,7 +467,6 @@ const info = options => {
 
 const userNav = options => {
   const nav = [
-    // dashboard
     {
       name: 'dashboard',
       parentId: 0,
@@ -478,29 +477,8 @@ const userNav = options => {
         show: true
       },
       component: 'RouteView',
-      redirect: '/dashboard/workplace'
+      redirect: '/dashboard/analysis'
     },
-    {
-      name: 'workplace',
-      parentId: 1,
-      id: 7,
-      meta: {
-        title: '工作台',
-        show: true
-      },
-      component: 'Workplace'
-    },
-    // {
-    //   name: 'monitor',
-    //   path: 'https://www.baidu.com/',
-    //   parentId: 1,
-    //   id: 3,
-    //   meta: {
-    //     title: '监控页（外部）',
-    //     target: '_blank',
-    //     show: true
-    //   }
-    // },
     {
       name: 'Analysis',
       parentId: 1,
@@ -511,6 +489,16 @@ const userNav = options => {
       },
       component: 'Analysis',
       path: '/dashboard/analysis'
+    },
+    {
+      name: 'workplace',
+      parentId: 1,
+      id: 7,
+      meta: {
+        title: '工作台',
+        show: true
+      },
+      component: 'Workplace'
     },
 
 
@@ -535,7 +523,7 @@ const userNav = options => {
       meta: {
         title: '餐厅状态总览'
       },
-      component: 'BasicForm'
+      component: 'Overview'
     },
 
 

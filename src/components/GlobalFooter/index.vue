@@ -1,12 +1,13 @@
 <template>
   <global-footer class="footer custom-render">
     <template v-slot:links>
-      <a href="https://www.github.com/vueComponent/pro-layout" target="_blank">Pro Layout</a>
-      <a href="https://www.github.com/vueComponent/ant-design-vue-pro" target="_blank">Github</a>
-      <a href="https://www.github.com/sendya/" target="_blank">@Sendya</a>
+      <a href="" target="_blank">罗文浚</a>
+      <a href="https://github.com/18630937603" target="_blank">刘志昊</a>
+      <a href="https://geekshang.top" target="_blank">商家祎</a>
+      <a href="https://github.com/lixiang0508" target="_blank">张理想</a>
     </template>
     <template v-slot:copyright>
-      <a href="https://github.com/vueComponent" target="_blank">vueComponent</a>
+      <a href="https://github.com/18630937603/restaurant-management" target="_blank">项目前端仓库地址</a>
     </template>
   </global-footer>
 </template>

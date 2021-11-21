@@ -114,12 +114,11 @@
 </template>
 
 <script>
-// import md5 from 'md5'
 import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix, welcome } from '@/utils/util'
 import { getSmsCaptcha, get2step } from '@/api/login'
-
+import { login } from '@/HeyCafe/api'
 
 export default {
   components: {
@@ -144,18 +143,18 @@ export default {
       }
     }
   },
-  created () {
-    get2step({ })
-      .then(res => {
-        this.requiredTwoStepCaptcha = res.result.stepCode
-      })
-      .catch(() => {
-        this.requiredTwoStepCaptcha = false
-      })
-    // this.requiredTwoStepCaptcha = true
-  },
+  // created () {
+  //   get2step({ })
+  //     .then(res => {
+  //       this.requiredTwoStepCaptcha = res.result.stepCode
+  //     })
+  //     .catch(() => {
+  //       this.requiredTwoStepCaptcha = false
+  //     })
+  //   // this.requiredTwoStepCaptcha = true
+  // },
   methods: {
-    ...mapActions(['Login', 'Logout']),
+    ...mapActions(['Logout']),
     // handler
     handleUsernameOrEmail (rule, value, callback) {
       const { state } = this
@@ -165,7 +164,7 @@ export default {
       } else {
         state.loginType = 1
       }
-      callback()
+      callback()x
     },
     handleTabClick (key) {
       this.customActiveKey = key
@@ -186,7 +185,6 @@ export default {
         form: { validateFields },
         state,
         customActiveKey,
-        Login
       } = this
 
       state.loginBtn = true
@@ -202,7 +200,8 @@ export default {
           // delete loginParams.username
           // loginParams[!state.loginType ? 'email' : 'username'] = values.username
           // loginParams.password = values.password
-          Login(loginParams)
+          login(loginParams)
+          // Login(loginParams)
             .then(() => {
               this.$store.commit('SET_NAME',{ name: loginParams.username, welcome: welcome() })
               this.loginSuccess()
