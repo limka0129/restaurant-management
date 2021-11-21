@@ -1,8 +1,4 @@
-import storage from 'store'
 import { getInfo } from '@/api/login'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
-import { axios } from '@/utils/request'
-import qs from 'qs'
 
 const user = {
   state: {
@@ -35,29 +31,6 @@ const user = {
   },
 
   actions: {
-    // 登录
-    Login ({ commit }, userInfo) {
-      return new Promise((resolve, reject) => {
-        // 转换成表单形式数据
-        console.log('userinfo: ',userInfo)
-        const payLoad = qs.stringify(userInfo)
-        console.log('payload: ',payLoad)
-        axios.post('https://test.geekshang.top/api/login', payLoad)
-        .then(response => {
-          console.log(response)
-          if (response.err === 0) {
-            commit('SET_TOKEN', '123')
-            storage.set(ACCESS_TOKEN, '123', 7 * 24 * 60 * 60 * 1000)
-            resolve()
-          } else {
-            reject(response.msg)
-          }
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
-
     // 获取用户信息
     GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {
@@ -102,7 +75,6 @@ const user = {
         commit('SET_TOKEN', '')
         commit('SET_NAME', '')
         commit('SET_ROLES', [])
-        storage.remove(ACCESS_TOKEN)
         localStorage.removeItem('HeyCafeLoginToken')
         resolve()
       })

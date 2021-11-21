@@ -49,12 +49,12 @@ export function getInfo () {
   })
 }
 
-export function getCurrentUserNav () {
-  return request({
-    url: userApi.UserMenu,
-    method: 'get'
-  })
-}
+// export function getCurrentUserNav () {
+//   return request({
+//     url: userApi.UserMenu,
+//     method: 'get'
+//   })
+// }
 
 export function logout () {
   return request({

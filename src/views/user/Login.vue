@@ -164,7 +164,7 @@ export default {
       } else {
         state.loginType = 1
       }
-      callback()x
+      callback()
     },
     handleTabClick (key) {
       this.customActiveKey = key
