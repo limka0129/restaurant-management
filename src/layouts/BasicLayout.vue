@@ -43,7 +43,7 @@
 <script>
 import { updateTheme } from '@ant-design-vue/pro-layout'
 import { i18nRender } from '@/locales'
-import { mapState } from 'vuex'
+import { routes as originRouterConfig } from '@/router'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
@@ -51,6 +51,7 @@ import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import Ads from '@/components/Other/CarbonAds'
 import LogoSvg from '../assets/logo.svg?inline'
+
 
 export default {
   name: 'BasicLayout',
@@ -95,15 +96,14 @@ export default {
       isMobile: false
     }
   },
-  computed: {
-    ...mapState({
-      // 动态主路由
-      mainMenu: state => state.permission.addRouters
-    })
-  },
   created () {
-    const routes = this.mainMenu.find(item => item.path === '/')
+    console.log(originRouterConfig)
+    const routerConfig = JSON.parse(JSON.stringify(originRouterConfig))
+    const routes = routerConfig.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
+    if(this.menus) {
+      console.log('菜单加载成功')
+    }
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)

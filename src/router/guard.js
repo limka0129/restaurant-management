@@ -10,7 +10,7 @@ router.beforeEach((to, from, next) => {
     NProgress.start() // start progress bar
     to.meta && typeof to.meta.title !== 'undefined' && setDocumentTitle(`${i18nRender(to.meta.title)} - ${domTitle}`)
     next()
-  })
+})
 
 router.afterEach(() => {
   NProgress.done() // finish progress bar
