@@ -22,7 +22,7 @@
         <a-button v-if="deskInfo.status === 3" @click="deskInfo.status = -1">{{ $t('hc.clean') }}</a-button>
       </template>
       <a-button class="desk" size="large" :class="mapClass(deskInfo.status)">{{ deskInfo.id }}</a-button>
-      <a-button v-for="n in deskInfo.seats" class="chair" :class="`No${n}`" shape="circle"></a-button>
+      <a-button v-for="n in deskInfo.seats" class="chair" :class="`No${n}`" shape="circle" :key="n"></a-button>
     </a-popover>
   </div>
 </template>

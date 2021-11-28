@@ -1,5 +1,14 @@
 <template>
   <div class="cafe-overview">
+    <div v-if="$route.path.includes('/host/')" class="workbench">
+      <span>{{ $t('hc.customerNumber') }}：&nbsp;</span>
+      <a-input-number id="inputNumber" v-model="customerNum" :min="1" :max="8" />
+      <a-button @click="showFindTableConfirm = true">{{ $t('hc.searchForTable') }}</a-button>
+      <a-modal v-model="showFindTableConfirm" :title="$t('hc.searchForTable')" @ok="handleFindTable"
+               :ok-text="$t('hc.confirm')" :cancel-text="$t('hc.cancel')">
+        <p>{{ $t('hc.sitForMeal') }}</p>
+      </a-modal>
+    </div>
     <a-carousel :arrows="true" class="table-status">
       <div
         slot="prevArrow"
@@ -13,11 +22,11 @@
         <a-icon type="right-circle" />
       </div>
       <div class="table-page">
-        <Table v-for="item of desks" v-if="item.page===1" :key="item.id" :desk-info.sync="item"
+        <Table v-for="item of tables" v-if="item.page===1" :key="item.id" :desk-info.sync="item"
                @remove-table="handleRemoveTable($event)"></Table>
       </div>
       <div>
-        <Table v-for="item of desks" v-if="item.page===2" :key="item.id" :desk-info.sync="item"
+        <Table v-for="item of tables" v-if="item.page===2" :key="item.id" :desk-info.sync="item"
                @remove-table="handleRemoveTable($event)"></Table>
       </div>
     </a-carousel>
@@ -26,82 +35,38 @@
 
 <script>
 import Table from '@/HeyCafe/components/Table'
+import { sitForMeal } from '@/HeyCafe/api/host'
+import { getAllTableStatus } from '@/HeyCafe/api/main'
 
 export default {
   name: 'Overview',
   data() {
     return {
-      desks: [
-        {
-          orderId: 0,
-          id: 1,
-          seats: 4,
-          page: 1,
-          status: 0,
-          waiterId: 1,
-          cusId: 0
-        },
-        {
-          orderId: 0,
-          id: 2,
-          seats: 5,
-          page: 1,
-          status: 1,
-          waiterId: 1,
-          cusId: 0
-        },
-        {
-          orderId: 0,
-          id: 3,
-          seats: 7,
-          page: 1,
-          status: 2,
-          waiterId: 1,
-          cusId: 0
-        },
-        {
-          orderId: 0,
-          id: 4,
-          seats: 8,
-          page: 1,
-          status: 3,
-          waiterId: 1,
-          cusId: 0
-        },
-        {
-          orderId: 0,
-          id: 5,
-          seats: 4,
-          page: 2,
-          status: 0,
-          waiterId: 1,
-          cusId: 0
-        },
-        {
-          orderId: 0,
-          id: 6,
-          seats: 5,
-          page: 2,
-          status: 1,
-          waiterId: 1,
-          cusId: 0
-        },
-        {
-          orderId: 0,
-          id: 7,
-          seats: 7,
-          page: 2,
-          status: 2,
-          waiterId: 1,
-          cusId: 0
-        }
-      ]
+      tables: [],
+      customerNum: 1,
+      showFindTableConfirm: false
     }
+  },
+  mounted() {
+    this.updateTableStatus()
   },
   methods: {
     handleRemoveTable(id) {
-      this.desks = this.desks.filter((item) => {
+      this.tables = this.tables.filter((item) => {
         return item.id !== id
+      })
+    },
+    handleFindTable() {
+      sitForMeal(this.customerNum).then(res=>{
+        this.showFindTableConfirm = false
+        this.$message.success(this.$t('hc.sitSuccess').replace(/\{\{table_number\}\}/,res?.data))
+        this.updateTableStatus()
+      })
+    },
+    updateTableStatus() {
+      getAllTableStatus().then(res=>{
+        console.log('allTableStatus:',res?.data)
+        res?.data && (this.tables = res.data)
       })
     }
   },
@@ -131,6 +96,10 @@ export default {
 </style>
 
 <style scoped lang="less">
+.workbench {
+  margin-bottom: 10px;
+}
+
 .table-status {
   height: 500px;
   width: 100%;

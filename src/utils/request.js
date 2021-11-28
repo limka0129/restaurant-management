@@ -12,8 +12,10 @@ const request = axios.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
   },
-  timeout: 6000 // 请求超时时间
+  timeout: 6000,// 请求超时时间
+  withCredentials: true
 })
+
 
 // 异常拦截处理器
 const errorHandler = (error) => {

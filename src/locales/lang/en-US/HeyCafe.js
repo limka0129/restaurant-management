@@ -2,6 +2,10 @@ export default {
   'hc.dashboard': '餐厅数据监控',
   'hc.overview': '餐厅状态总览',
   'hc.hostOnly': '迎宾员专用',
+  'hc.waiterOnly': '服务员专用',
+  'hc.cookOnly': '厨师专用',
+  'hc.managerOnly': '经理专用',
+  'hc.busboyOnly': '清洁工专用',
   'hc.repositoryFE': '项目前端仓库地址',
   'hc.repositoryBE': '项目后端仓库地址',
   'hc.ldf': '林德福',
@@ -25,5 +29,15 @@ export default {
   'hc.order': '点单',
   'hc.serve': '上菜',
   'hc.pay': '结账',
-  'hc.clean': '清扫'
+  'hc.clean': '清扫',
+  'hc.customerNumber': '顾客人数',
+  'hc.searchForTable': '寻找餐桌',
+  'hc.confirm': '确定',
+  'hc.cancel': '取消',
+  'hc.sitForMeal': '确定自动找寻餐桌并让顾客坐下吗？',
+  'hc.sitSuccess': '成功，顾客被分配到{{table_number}}号桌就餐',
+  'hc.menu': '菜谱',
+  'hc.staffInformation': '员工信息',
+  'hc.todoDishes': '待完成菜品',
+  'hc.doneDishes': '已完成菜品'
 }

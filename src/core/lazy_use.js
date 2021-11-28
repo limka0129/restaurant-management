@@ -45,6 +45,7 @@ import {
   Statistic,
   Descriptions,
   Space,
+  Transfer,
   message,
   notification
 } from 'ant-design-vue'
@@ -101,6 +102,7 @@ Vue.use(Statistic)
 Vue.use(Descriptions)
 Vue.use(Space)
 Vue.use(Carousel)
+Vue.use(Transfer)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message

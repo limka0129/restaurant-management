@@ -1,0 +1,25 @@
+// 创建 axios 实例
+import axios from 'axios'
+
+const request = axios.create({
+  // API 请求的默认前缀
+  baseURL: process.env.VUE_APP_API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+  },
+  timeout: 6000,// 请求超时时间
+  withCredentials: true
+})
+
+request.interceptors.request.use(config=>{
+  config.headers = {
+    ...config.headers
+  }
+  return config
+})
+
+request.interceptors.response.use(response=>{
+  return response.data
+})
+
+export default request

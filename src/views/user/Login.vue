@@ -118,7 +118,7 @@ import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
 import { mapActions } from 'vuex'
 import { timeFix, welcome } from '@/utils/util'
 import { getSmsCaptcha, get2step } from '@/api/login'
-import { login } from '@/HeyCafe/api'
+import { login } from '@/HeyCafe/api/main'
 
 export default {
   components: {

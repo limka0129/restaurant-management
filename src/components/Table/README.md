@@ -235,7 +235,7 @@ alert: {
 >
 > 文档中的结构有可能由于组件 bug 进行修正而改动。实际修改请以当时最新版本为准
 
-修改 `@/components/table/index.js`  第 156 行起
+修改 `@/components/table/main.js`  第 156 行起
 
 
 
