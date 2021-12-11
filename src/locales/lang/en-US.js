@@ -10,7 +10,8 @@ import dashboard from './en-US/dashboard'
 import form from './en-US/form'
 import result from './en-US/result'
 import account from './en-US/account'
-import HeyCafe from './en-US/HeyCafe'
+// import HeyCafe from './en-US/HeyCafe'
+import HeyCafe from './en-US/HeyCafe_English'
 
 const components = {
   antLocale: antdEnUS,
