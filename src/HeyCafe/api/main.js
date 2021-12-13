@@ -2,18 +2,9 @@
 
 import request from './request'
 import qs from 'qs'
-import store from '@/store'
 
 export function login(params) {
-  return request.post('/api/login', qs.stringify(params)).then(res => {
-    if (res.err === 0) {
-      store.commit('SET_TOKEN', res.msg)
-      localStorage.setItem('HeyCafeSessionId', res.msg)
-    }
-  }).catch(err=>{
-    console.log(err)
-  })
-
+  return request.post('/api/login', qs.stringify(params))
 }
 
 export function logout() {
@@ -22,4 +13,8 @@ export function logout() {
 
 export function getAllTableStatus() {
   return request.get('/api/showAllTable')
+}
+
+export function getTableStatusById(tableId) {
+  return request.post('/api/getTable', qs.stringify({ table_id: tableId }))
 }

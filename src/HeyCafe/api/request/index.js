@@ -1,5 +1,6 @@
 // 创建 axios 实例
 import axios from 'axios'
+import { message } from 'ant-design-vue'
 
 const request = axios.create({
   // API 请求的默认前缀
@@ -20,6 +21,8 @@ request.interceptors.request.use(config=>{
 
 request.interceptors.response.use(response=>{
   return response.data
+},error => {
+  message.error(`接口请求错误：${error}`)
 })
 
 export default request

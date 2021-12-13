@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div >
     <a-transfer
+      class="todo-dishes"
       :data-source="origin"
       :titles="[$t('hc.todoDishes'), $t('hc.doneDishes')]"
       :target-keys="targetKeys"
@@ -10,7 +11,7 @@
         height: '500px'
       }"
       :locale="{ itemUnit: '份', itemsUnit: '份', notFoundContent: '列表为空', searchPlaceholder: '请输入搜索内容' }"
-      :operations="['出餐','撤回']"
+      :operations="['出餐','']"
       @change="handleChange"
     />
   </div>
@@ -25,8 +26,8 @@ export default {
   name: 'TodoDishes',
   data() {
     return {
-      origin: [],
-      targetKeys: [],
+      origin: [], // 数据源，同时包括已完成和未完成的菜
+      targetKeys: [], // 已完成的菜的key
     };
   },
   methods: {
@@ -56,6 +57,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.todo-dishes {
+  min-width: 590px;
+}
 
+.todo-dishes >>> .ant-btn-icon-only {
+  display: none !important;
+}
 </style>

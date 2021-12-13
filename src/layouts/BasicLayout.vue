@@ -97,12 +97,11 @@ export default {
     }
   },
   created () {
-    console.log(originRouterConfig)
     const routerConfig = JSON.parse(JSON.stringify(originRouterConfig))
     const routes = routerConfig.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
-    if(this.menus) {
-      console.log('菜单加载成功')
+    if(!this.menus) {
+      console.error('菜单加载失败')
     }
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {

@@ -55,6 +55,7 @@ const user = {
         commit('SET_NAME', '')
         commit('SET_ROLES', [])
         localStorage.removeItem('HeyCafeLoginToken')
+        localStorage.removeItem('CurrentUserRole')
         resolve()
       })
     }

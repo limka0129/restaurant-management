@@ -1,13 +1,11 @@
 <template>
   <div class="cafe-overview">
-    <div v-if="$route.path.includes('/host/')" class="workbench">
+    <!-- 迎宾员专属功能 -->
+<!--    <div v-if="showWaiterOnlyWorkbench" class="workbench">-->
+    <div class="workbench">
       <span>{{ $t('hc.customerNumber') }}：&nbsp;</span>
       <a-input-number id="inputNumber" v-model="customerNum" :min="1" :max="8" />
-      <a-button @click="showFindTableConfirm = true">{{ $t('hc.searchForTable') }}</a-button>
-      <a-modal v-model="showFindTableConfirm" :title="$t('hc.searchForTable')" @ok="handleFindTable"
-               :ok-text="$t('hc.confirm')" :cancel-text="$t('hc.cancel')">
-        <p>{{ $t('hc.sitForMeal') }}</p>
-      </a-modal>
+      <a-button @click="handleFindTable">{{ $t('hc.searchForTable') }}</a-button>
     </div>
     <a-carousel :arrows="true" class="table-status">
       <div
@@ -21,11 +19,13 @@
       <div slot="nextArrow" slot-scope="props" class="custom-slick-arrow" style="right: -40px">
         <a-icon type="right-circle" />
       </div>
+      <!-- 第一页 -->
       <div class="table-page">
         <Table v-for="item of tables" v-if="item.page===1" :key="item.id" :desk-info.sync="item"
                @remove-table="handleRemoveTable($event)"></Table>
       </div>
-      <div>
+      <!-- 第二页 -->
+      <div class="table-page">
         <Table v-for="item of tables" v-if="item.page===2" :key="item.id" :desk-info.sync="item"
                @remove-table="handleRemoveTable($event)"></Table>
       </div>
@@ -35,7 +35,7 @@
 
 <script>
 import Table from '@/HeyCafe/components/Table'
-import { sitForMeal } from '@/HeyCafe/api/host'
+import { getTableRecommend } from '@/HeyCafe/api/host'
 import { getAllTableStatus } from '@/HeyCafe/api/main'
 
 export default {
@@ -44,11 +44,15 @@ export default {
     return {
       tables: [],
       customerNum: 1,
-      showFindTableConfirm: false
     }
   },
   mounted() {
-    this.updateTableStatus()
+    this.updateAllTableStatus()
+  },
+  computed: {
+    showWaiterOnlyWorkbench() {
+      return localStorage.getItem('CurrentUserRole') === 'waiter'
+    }
   },
   methods: {
     handleRemoveTable(id) {
@@ -57,18 +61,23 @@ export default {
       })
     },
     handleFindTable() {
-      sitForMeal(this.customerNum).then(res=>{
-        this.showFindTableConfirm = false
-        this.$message.success(this.$t('hc.sitSuccess').replace(/\{\{table_number\}\}/,res?.data))
-        this.updateTableStatus()
+      getTableRecommend(this.customerNum).then(res=>{
+        if(+res?.err === 0) {
+          this.$message.success(this.$t('hc.tableRecommend').replace(/\{\{table_number\}\}/,res?.data))
+        }else {
+          throw new Error('findtable接口返回err非0')
+        }
+      }).catch(e=>{
+        console.error(e)
+        this.$message.error('推荐餐桌接口错误！')
       })
     },
-    updateTableStatus() {
+    updateAllTableStatus() {
       getAllTableStatus().then(res=>{
-        console.log('allTableStatus:',res?.data)
+        console.log('showAllTable接口返回信息：',res?.data)
         res?.data && (this.tables = res.data)
       })
-    }
+    },
   },
   components: {
     Table
@@ -103,6 +112,7 @@ export default {
 .table-status {
   height: 500px;
   width: 100%;
+  min-width: 650px;
   background: rgba(204, 204, 204, .5);
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   padding: 0 60px;

@@ -1,6 +1,7 @@
 // 和订单相关的接口
 
 import request from './request'
+import qs from 'qs'
 
 export function getOrderDetailById(orderId) {
   return request.post('/api/findOrderDetails',{
@@ -16,11 +17,11 @@ export function getOrderDetailByCusId(cusId) {
 }
 
 export function createOrder(cusId,tableId,dishItemArray) {
-  return request.post('/api/createOrder',{
+  return request.post('/api/createOrder',qs.stringify({
     cus_id: +cusId,
     table_id: +tableId,
-    items: dishItemArray
-  })
+    items: JSON.stringify(dishItemArray)
+  }))
 }
 
 export function cancelOrder(orderId) {

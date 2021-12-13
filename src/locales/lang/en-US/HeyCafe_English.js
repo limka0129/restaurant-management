@@ -34,8 +34,7 @@ export default {
   'hc.searchForTable': 'Search Table',
   'hc.confirm': 'Confirm',
   'hc.cancel': 'Cancel',
-  'hc.sitForMeal': 'Sure to automatically find the table and let the customer sit down?',
-  'hc.sitSuccess': 'Succeed，customer is assigned to NO.{{table_number}} table.',
+  'hc.tableRecommend': 'Customer(s) is recommended to have meal at table {{table_number}}',
   'hc.menu': 'Menu',
   'hc.staffInformation': 'Employee Infomation'
 }
