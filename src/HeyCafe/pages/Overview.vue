@@ -69,7 +69,7 @@ export default {
         }
       }).catch(e=>{
         console.error(e)
-        this.$message.error('推荐餐桌接口错误！')
+        this.$message.error('当前没有可用的餐桌！')
       })
     },
     updateAllTableStatus() {

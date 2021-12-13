@@ -190,6 +190,8 @@ export default {
                 console.log('login接口返回数据：',res)
                 localStorage.setItem('HeyCafeSessionId', res.msg)
                 localStorage.setItem('CurrentUserRole', res.data.role)
+                localStorage.setItem('CurrentUserName', res.data.name)
+                localStorage.setItem('CurrentUserUsername', res.data.userName)
                 this.$store.commit('SET_NAME', { name: loginParams.username, welcome: welcome() })
                 this.loginSuccess()
               } else {
