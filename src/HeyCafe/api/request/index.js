@@ -13,10 +13,18 @@ const request = axios.create({
 })
 
 request.interceptors.request.use(config=>{
-  config.headers = {
-    ...config.headers
+  if(localStorage.getItem('HeyCafeSessionId')) {
+    config.headers = {
+      'Token': localStorage.getItem('HeyCafeSessionId'),
+      ...config.headers
+    }
+    return config
+  }else {
+    config.headers = {
+      ...config.headers
+    }
+    return config
   }
-  return config
 })
 
 request.interceptors.response.use(response=>{

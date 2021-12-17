@@ -1,17 +1,15 @@
 <template>
-<!--  <a-dropdown v-if="currentUser && currentUser.name" placement="bottomRight">-->
   <a-dropdown placement="bottomRight">
     <span class="ant-pro-account-avatar">
       <a-avatar size="small" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" class="antd-pro-global-header-index-avatar" />
-<!--      <span>{{ currentUser.name }}</span>-->
       <span>{{ username }}</span>
     </span>
     <template v-slot:overlay>
       <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
-        <a-menu-item key="center" @click="handleToCenter">
-          <a-icon type="user" />
-          {{ $t('menu.account.center') }}
-        </a-menu-item>
+<!--        <a-menu-item key="center" @click="handleToCenter">-->
+<!--          <a-icon type="user" />-->
+<!--          {{ $t('menu.account.center') }}-->
+<!--        </a-menu-item>-->
         <a-menu-item key="settings" @click="handleToSettings">
           <a-icon type="setting" />
           {{ $t('menu.account.settings') }}
@@ -24,9 +22,6 @@
       </a-menu>
     </template>
   </a-dropdown>
-<!--  <span v-else>-->
-<!--    <a-spin size="small" :style="{ marginLeft: 8, marginRight: 8 }" />-->
-<!--  </span>-->
 </template>
 
 <script>

@@ -1,4 +1,4 @@
-// 和查询菜品相关的接口
+// 和菜谱相关的接口
 
 import request from './request'
 

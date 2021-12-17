@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <a-transfer
       class="todo-dishes"
       :data-source="origin"
@@ -19,7 +19,7 @@
 
 
 <script>
-import { getDishesUndone } from '@/HeyCafe/api/cook'
+import { getDishesUndone, finishDishes } from '@/HeyCafe/api/cook'
 import { getDishesDone } from '@/HeyCafe/api/waiter'
 
 export default {
@@ -27,34 +27,49 @@ export default {
   data() {
     return {
       origin: [], // 数据源，同时包括已完成和未完成的菜
-      targetKeys: [], // 已完成的菜的key
-    };
+      targetKeys: [] // 已完成的菜的key
+    }
   },
   methods: {
-    handleChange(nextTargetKeys) {
-      this.targetKeys = nextTargetKeys;
-    },
+    handleChange(nextTargetKeys, direction, movedKeys) {
+      let dishesToBeFinished = this.origin.filter(item => movedKeys.includes(item.key))
+      finishDishes(dishesToBeFinished).then(res => {
+        if (+res?.err === 0) {
+          this.$message.success('出餐成功！')
+          this.targetKeys = nextTargetKeys
+        } else {
+          throw new Error('finishDished接口返回数据非0')
+        }
+      }).catch(err => {
+        console.error(err)
+        this.$message.error('出餐失败！')
+      })
+    }
   },
   mounted() {
-    getDishesUndone().then(res=>{
-      for(let item of res.data) {
+    getDishesUndone().then(res => {
+      for (let item of res.data) {
         this.origin.push({
           key: this.origin.length + '',
           title: item.name + ' * ' + item.count,
+          orderId: item.orderId,
+          dishId: item.dishId
         })
       }
     })
-    getDishesDone().then(res=>{
-      for(let item of res.data) {
+    getDishesDone().then(res => {
+      for (let item of res.data) {
         this.origin.push({
           key: this.origin.length + '',
           title: item.name + ' * ' + item.count,
+          orderId: item.orderId,
+          dishId: item.dishId
         })
         this.targetKeys.push(`${this.origin.length - 1}`)
       }
     })
   }
-};
+}
 </script>
 
 <style scoped>

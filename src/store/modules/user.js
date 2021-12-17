@@ -54,7 +54,7 @@ const user = {
         commit('SET_TOKEN', '')
         commit('SET_NAME', '')
         commit('SET_ROLES', [])
-        localStorage.removeItem('HeyCafeLoginToken')
+        localStorage.removeItem('HeyCafeSessionId')
         localStorage.removeItem('CurrentUserRole')
         localStorage.removeItem('CurrentUserName')
         localStorage.removeItem('CurrentUserUsername')

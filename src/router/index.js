@@ -32,22 +32,16 @@ const routes = [
             component: () => import('@/views/dashboard/Analysis'),
             meta: { title: 'menu.dashboard.analysis', keepAlive: true }
           },
-          // {
-          //   path: '/dashboard/workplace',
-          //   name: 'Workplace',
-          //   component: () => import('@/views/dashboard/Workplace'),
-          //   meta: { title: 'menu.dashboard.workplace', keepAlive: true }
-          // },
           {
             path: '/dashboard/menu',
             name: 'Menu',
-            component: () => import('@/HeyCafe/pages/Menu'),
+            component: () => import('@/HeyCafe/pages/dashboard/Menu'),
             meta: { title: 'hc.menu', keepAlive: true }
           },
           {
             path: '/dashboard/overview/',
             name: 'Overview',
-            component: () => import('@/HeyCafe/pages/Overview'),
+            component: () => import('@/HeyCafe/pages/dashboard/Overview'),
             meta: { title: 'hc.overview', keepAlive: true }
           }
         ]
@@ -94,7 +88,7 @@ const routes = [
         redirect: '/cook/todoDishes',
         // hidden: false,
         component: RouteView,
-        meta: { title: 'hc.cookOnly', keepAlive: true, icon: 'user' },
+        meta: { title: 'hc.cookOnly', keepAlive: true, icon: 'coffee' },
         children: [
           {
             path: '/cook/todoDishes/',
@@ -128,7 +122,7 @@ const routes = [
         name: 'Manager',
         redirect: '/manager/staffInformation',
         component: RouteView,
-        meta: { title: 'hc.managerOnly', keepAlive: true, icon: 'user' },
+        meta: { title: 'hc.managerOnly', keepAlive: true, icon: 'solution' },
         children: [
           {
             path: '/manager/staffInformation',
@@ -137,9 +131,24 @@ const routes = [
             meta: { title: 'hc.staffInformation', keepAlive: true }
           }
         ]
+      },
+
+      // accountCenter
+      {
+        path: '/account',
+        name: 'Account',
+        redirect: '/account/settings',
+        component: RouteView,
+        meta: { title: 'menu.account', keepAlive: true, icon: 'user' },
+        children: [
+          {
+            path: '/account/settings',
+            name: 'AccountSettings',
+            component: () => import('@/HeyCafe/pages/account/Settings'),
+            meta: { title: 'menu.account.settings', keepAlive: true }
+          }
+        ]
       }
-
-
     ]
   },
   {
