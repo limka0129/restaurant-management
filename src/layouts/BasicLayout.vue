@@ -36,6 +36,7 @@
     <template v-slot:footerRender>
       <global-footer />
     </template>
+    <Entrance></Entrance>
     <router-view />
   </pro-layout>
 </template>
@@ -51,6 +52,7 @@ import RightContent from '@/components/GlobalHeader/RightContent'
 import GlobalFooter from '@/components/GlobalFooter'
 import Ads from '@/components/Other/CarbonAds'
 import LogoSvg from '../assets/logo.svg?inline'
+import Entrance from "@/HeyCafe/Entrance";
 
 
 export default {
@@ -59,7 +61,8 @@ export default {
     RightContent,
     GlobalFooter,
     LogoSvg,
-    Ads
+    Ads,
+    Entrance
   },
   data () {
     return {

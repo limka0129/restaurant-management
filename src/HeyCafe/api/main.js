@@ -2,13 +2,9 @@
 
 import request from './request'
 import qs from 'qs'
-import vm from '@/main.js'
 
 export function login(params) {
-  return request.post('/api/login', qs.stringify(params)).then((res) => {
-    establishWebsocketConnection()
-    return res
-  })
+  return request.post('/api/login', qs.stringify(params))
 }
 
 export function getAllTableStatus() {
@@ -25,20 +21,6 @@ export function getProfile() {
 }
 
 // 修改个人信息，支持修改name,gender(phoneNumber,userName,password)
-export function editProfile(staffId, profile) {
-  return request.post('/api/Fillinfo')
-}
-
-export function establishWebsocketConnection() {
-  let connection = new WebSocket(`ws://8.140.159.135:8085/webSocket`)
-  connection.onopen = () => {
-    console.log('ws连接建立成功！')
-  }
-  connection.onmessage = (msg) => {
-    console.log('收到服务器的ws消息：',msg)
-  }
-  connection.onclose = () => {
-    console.log('ws连接已关闭')
-  }
-  vm.$websocket = connection
+export function editProfile(staffPlainObj) {
+  return request.post('/api/FillInfo',qs.stringify(staffPlainObj))
 }

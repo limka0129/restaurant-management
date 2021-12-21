@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <a-transfer
       class="todo-dishes"
       :data-source="origin"
@@ -21,6 +21,7 @@
 <script>
 import { getDishesUndone, finishDishes } from '@/HeyCafe/api/cook'
 import { getDishesDone } from '@/HeyCafe/api/waiter'
+import {registerCallback} from "@/HeyCafe/api/websocket";
 
 export default {
   name: 'TodoDishes',
@@ -44,19 +45,28 @@ export default {
         console.error(err)
         this.$message.error('出餐失败！')
       })
+    },
+    updateDishesUndone() {
+      getDishesUndone().then(res => {
+        for (let item of res.data) {
+          this.origin.push({
+            key: this.origin.length + '',
+            title: item.name + ' * ' + item.count,
+            orderId: item.orderId,
+            dishId: item.dishId
+          })
+        }
+      })
     }
   },
   mounted() {
-    getDishesUndone().then(res => {
-      for (let item of res.data) {
-        this.origin.push({
-          key: this.origin.length + '',
-          title: item.name + ' * ' + item.count,
-          orderId: item.orderId,
-          dishId: item.dishId
-        })
+    registerCallback('cook',(data)=>{
+      if(localStorage.getItem('CurrentUserRole')==='cook') {
+        this.$message.warning(`厨师你好，顾客又下新的订单啦`)
       }
+      this.updateDishesUndone()
     })
+    this.updateDishesUndone()
     getDishesDone().then(res => {
       for (let item of res.data) {
         this.origin.push({
@@ -73,6 +83,12 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .todo-dishes {
   min-width: 590px;
 }

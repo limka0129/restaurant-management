@@ -1,24 +1,33 @@
 <template>
   <div class="table-container">
-    <a-popover v-model="popoverVisible" :title="`No. ${deskInfo.id}`" trigger="click">
+    <a-popover v-model="popoverVisible" :title="`No. ${deskInfo.table.id}`" trigger="click">
       <template slot="content">
-        <p>{{ $t('hc.orderID') }}：{{ deskInfo.orderId }}</p>
-        <p>{{ $t('hc.currentWaiter') }}：{{ deskInfo.waiterId }}</p>
-        <div>
+        <p>{{ deskInfo.table.orderId === 0 ? '当前没有订单' : `${$t('hc.orderID')}：${deskInfo.table.orderId}` }}</p>
+        <p>{{ $t('hc.currentWaiter') }}：{{ deskInfo.table.waiterId }}</p>
+        <!-- 餐桌状态 -->
+        <p>
           <span>{{ $t('hc.tableStatus') }}：</span>
-          <span v-if="deskInfo.status===-1" :class="mapClass(deskInfo.status)">{{ $t('hc.noCustomers') }}</span>
-          <span v-if="deskInfo.status===0" :class="mapClass(deskInfo.status)">{{ $t('hc.needWaiter') }}</span>
-          <span v-else-if="deskInfo.status===1" :class="mapClass(deskInfo.status)">{{ $t('hc.waitingForMeal') }}</span>
-          <span v-else-if="deskInfo.status===2" :class="mapClass(deskInfo.status)">{{ $t('hc.eating') }}</span>
-          <span v-else-if="deskInfo.status===3" :class="mapClass(deskInfo.status)">{{ $t('hc.needClean') }}</span>
-        </div>
-        <a-button @click="deskInfo.seats < 8 && deskInfo.seats++">{{ $t('hc.addChair') }}</a-button>
-        <a-button @click="deskInfo.seats > 0 && deskInfo.seats--">{{ $t('hc.removeChair') }}</a-button>
-        <a-button @click="$emit('remove-table',deskInfo.id)">{{ $t('hc.removeTable') }}</a-button>
+          <span v-if="deskInfo.table.status===-1" :class="mapClass(deskInfo.table.status)">{{ $t('hc.noCustomers') }}</span>
+          <span v-if="deskInfo.table.status===0" :class="mapClass(deskInfo.table.status)">{{ $t('hc.needWaiter') }}</span>
+          <span v-else-if="deskInfo.table.status===1" :class="mapClass(deskInfo.table.status)">{{ $t('hc.waitingForMeal') }}</span>
+          <span v-else-if="deskInfo.table.status===2" :class="mapClass(deskInfo.table.status)">{{ $t('hc.eating') }}</span>
+          <span v-else-if="deskInfo.table.status===3" :class="mapClass(deskInfo.table.status)">{{ $t('hc.needClean') }}</span>
+        </p>
+        <!-- 展示这桌顾客已点菜品 -->
+        <p v-show="deskInfo.table.status===1 || deskInfo.table.status===2">
+          <span>当前已点菜品：</span>
+          <span v-for="item in deskInfo.list" :key="item.dishId">{{ item.name }}&nbsp;*{{ item.count }}&nbsp;&nbsp;&nbsp;</span>
+        </p>
+        <!-- 增加椅子按钮 -->
+        <a-button @click="deskInfo.table.seats < 8 && deskInfo.table.seats++">{{ $t('hc.addChair') }}</a-button>
+        <!-- 减少椅子按钮 -->
+        <a-button @click="deskInfo.table.seats > 0 && deskInfo.table.seats--">{{ $t('hc.removeChair') }}</a-button>
+        <!-- 删除餐桌按钮 -->
+        <a-button @click="$emit('remove-table',deskInfo.table.id)">{{ $t('hc.removeTable') }}</a-button>
         <!-- 就座按钮 -->
-        <a-button v-show="deskInfo.status === -1" @click="handleSit">{{ $t('hc.sit') }}</a-button>
+        <a-button v-show="deskInfo.table.status === -1" @click="handleSit">{{ $t('hc.sit') }}</a-button>
         <!-- 点单按钮 -->
-        <a-button v-show="deskInfo.status === 0" @click="popoverVisible = false;isMenuShow = true">
+        <a-button v-show="deskInfo.table.status === 0" @click="popoverVisible = false;isMenuShow = true">
           {{ $t('hc.order') }}
         </a-button>
         <!-- 菜谱弹框 -->
@@ -35,15 +44,15 @@
           <Dishes :allow-order="true" @updateCurrentOrders="currentOrders = $event"></Dishes>
         </a-modal>
         <!-- 上菜按钮 -->
-        <a-button v-show="deskInfo.status === 1" @click="deskInfo.status++">{{ $t('hc.serve') }}</a-button>
+        <a-button v-show="deskInfo.table.status === 1" @click="handleServeAllDishes">{{ $t('hc.serve') }}</a-button>
         <!-- 结账按钮 -->
-        <a-button v-show="deskInfo.status === 2" @click="handlePayOrder">{{ $t('hc.pay') }}</a-button>
-        <a-button v-show="deskInfo.status === 3" @click="handleCleanTable">{{ $t('hc.clean') }}</a-button>
+        <a-button v-show="deskInfo.table.status === 2" @click="handlePayOrder">{{ $t('hc.pay') }}</a-button>
+        <a-button v-show="deskInfo.table.status === 3" @click="handleCleanTable">{{ $t('hc.clean') }}</a-button>
       </template>
       <!-- 餐桌 -->
-      <a-button class="desk" size="large" :class="mapClass(deskInfo.status)">{{ deskInfo.id }}</a-button>
+      <a-button class="desk" size="large" :class="mapClass(deskInfo.table.status)">{{ deskInfo.table.id }}</a-button>
       <!-- 椅子 -->
-      <a-button v-for="n in deskInfo.seats" class="chair" :class="`No${n}`" shape="circle" :key="n"></a-button>
+      <a-button v-for="n in deskInfo.table.seats" class="chair" :class="`No${n}`" shape="circle" :key="n"></a-button>
     </a-popover>
   </div>
 </template>
@@ -54,7 +63,7 @@ import { createOrder } from '@/HeyCafe/api/order'
 import { sit } from '@/HeyCafe/api/host'
 import { cleanTable } from '@/HeyCafe/api/busboy'
 import { getTableStatusById } from '@/HeyCafe/api/main'
-import { payOrder } from '@/HeyCafe/api/waiter'
+import { payOrder, serveAllDishes } from '@/HeyCafe/api/waiter'
 
 export default {
   name: 'Table',
@@ -82,9 +91,11 @@ export default {
       }
     },
     updateMyself() {
-      getTableStatusById(this.deskInfo.id).then(res => {
+      getTableStatusById(this.deskInfo.table.id).then(res => {
         if (+res?.err === 0) {
-          Object.assign(this.deskInfo, res.data)
+          this.deskInfo.list = res.data.list
+          this.deskInfo.table = res.data.table
+          // Object.assign(this.deskInfo.table, res.data.table)
         } else {
           this.$message.error('错误：getTable接口返回err非0')
         }
@@ -95,7 +106,7 @@ export default {
     },
     handleCreateOrder() {
       this.isMenuShow = false
-      createOrder(this.deskInfo.cusId, this.deskInfo.id, this.currentOrders).then(res => {
+      createOrder(this.deskInfo.table.cusId, this.deskInfo.table.id, this.currentOrders).then(res => {
         if (+res?.err === 0) {
           this.$message.success('订单创建成功！')
           this.updateMyself()
@@ -108,7 +119,7 @@ export default {
       })
     },
     handleSit() {
-      sit(this.deskInfo.id).then(res => {
+      sit(this.deskInfo.table.id).then(res => {
         if (+res?.err === 0) {
           this.$message.success('就座成功！')
           this.updateMyself()
@@ -120,8 +131,21 @@ export default {
         this.$message.error('就座失败！')
       })
     },
+    handleServeAllDishes() {
+      serveAllDishes(this.deskInfo.table.orderId).then(res => {
+        if (+res?.err === 0) {
+          this.$message.success('上菜成功！')
+          this.updateMyself()
+        } else {
+          throw new Error('serveDish接口返回err非0')
+        }
+      }).catch(err => {
+        console.error(err)
+        this.$message.error('上菜失败！')
+      })
+    },
     handlePayOrder() {
-      payOrder(this.deskInfo.orderId).then(res=>{
+      payOrder(this.deskInfo.table.orderId).then(res=>{
         if(+res?.err===0) {
           this.$message.success('结账成功！')
           this.updateMyself()
@@ -134,10 +158,10 @@ export default {
       })
     },
     handleCleanTable() {
-      cleanTable(this.deskInfo.id).then(res => {
+      cleanTable(this.deskInfo.table.id).then(res => {
         if (+res?.err === 0) {
           this.$message.success(res?.msg)
-          this.deskInfo.status = -1
+          this.deskInfo.table.status = -1
         } else {
           throw new Error('cleanTable接口返回err非0')
         }
@@ -154,6 +178,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+
 .table-container {
   margin: 20px;
   position: relative;

@@ -1,12 +1,12 @@
 <template>
   <div class="cafe-overview">
     <!-- 迎宾员专属功能 -->
-<!--    <div v-if="showWaiterOnlyWorkbench" class="workbench">-->
     <div class="workbench">
       <span>{{ $t('hc.customerNumber') }}：&nbsp;</span>
       <a-input-number id="inputNumber" v-model="customerNum" :min="1" :max="8" />
       <a-button @click="handleFindTable">{{ $t('hc.searchForTable') }}</a-button>
     </div>
+    <!-- 餐厅总览 -->
     <a-carousel :arrows="true" class="table-status">
       <div
         slot="prevArrow"
@@ -21,12 +21,12 @@
       </div>
       <!-- 第一页 -->
       <div class="table-page">
-        <Table v-for="item of tables" v-if="item.page===1" :key="item.id" :desk-info.sync="item"
+        <Table v-for="item of tables" v-if="item.table.page===1" :key="item.table.id" :desk-info.sync="item"
                @remove-table="handleRemoveTable($event)"></Table>
       </div>
       <!-- 第二页 -->
       <div class="table-page">
-        <Table v-for="item of tables" v-if="item.page===2" :key="item.id" :desk-info.sync="item"
+        <Table v-for="item of tables" v-if="item.table.page===2" :key="item.table.id" :desk-info.sync="item"
                @remove-table="handleRemoveTable($event)"></Table>
       </div>
     </a-carousel>
@@ -57,7 +57,7 @@ export default {
   methods: {
     handleRemoveTable(id) {
       this.tables = this.tables.filter((item) => {
-        return item.id !== id
+        return item.table.id !== id
       })
     },
     handleFindTable() {
