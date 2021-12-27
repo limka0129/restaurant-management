@@ -18,7 +18,7 @@ export function removeAllCallbacks(role) {
 
 export function establishWebsocketConnection() {
   if (!connection) {
-    connection = new WebSocket(`ws://8.140.159.135:8085/webSocket`)
+    connection = new WebSocket(`wss://test.geekshang.top/webSocket`)
     connection.onopen = () => {
       console.log('ws连接建立成功！')
     }
