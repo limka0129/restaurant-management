@@ -5,7 +5,7 @@ export default {
   'hc.waiterOnly': 'Waiters Only',
   'hc.cookOnly': 'Cooker Only',
   'hc.managerOnly': 'Manager Only',
-  'hc.busboyOnly': '清洁工专用',
+  'hc.busboyOnly': 'Busboy Only',
   'hc.repositoryFE': 'Front-end warehouse address',
   'hc.repositoryBE': 'Back-end warehouse address',
   'hc.ldf': 'Lin Defu',
@@ -36,5 +36,6 @@ export default {
   'hc.cancel': 'Cancel',
   'hc.tableRecommend': 'Customer(s) is recommended to have meal at table {{table_number}}',
   'hc.menu': 'Menu',
-  'hc.staffInformation': 'Employee Infomation'
+  'hc.staffInformation': 'Employee Infomation',
+  'hc.todoDishes': 'Dishes to do',
 }

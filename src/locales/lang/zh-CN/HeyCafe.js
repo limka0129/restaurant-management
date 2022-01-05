@@ -1,6 +1,6 @@
 export default {
   'hc.dashboard': '餐厅数据监控',
-  'hc.overview': '餐厅状态总览',
+  'hc.overview': '餐桌总览',
   'hc.hostOnly': '迎宾员专用',
   'hc.waiterOnly': '服务员专用',
   'hc.cookOnly': '厨师专用',
@@ -35,7 +35,7 @@ export default {
   'hc.confirm': '确定',
   'hc.cancel': '取消',
   'hc.tableRecommend': '推荐让顾客到{{table_number}}号桌就餐',
-  'hc.menu': '菜谱',
+  'hc.menu': '菜品列表',
   'hc.staffInformation': '员工信息',
   'hc.todoDishes': '待完成菜品',
   'hc.doneDishes': '已完成菜品'

@@ -242,7 +242,7 @@ for (let i = 0; i < 12; i += 1) {
 const rankList = []
 for (let i = 0; i < 7; i++) {
   rankList.push({
-    name: '白鹭岛 ' + (i + 1) + ' 号店',
+    name:  (i + 1) + ' 号餐桌',
     total: 1234.56 - i * 100
   })
 }
@@ -270,7 +270,7 @@ const searchData = []
 for (let i = 0; i < 50; i += 1) {
   searchData.push({
     index: i + 1,
-    keyword: `搜索关键词-${i}`,
+    keyword: `嘿店${i}号分店`,
     count: Math.floor(Math.random() * 1000),
     range: Math.floor(Math.random() * 100),
     status: Math.floor((Math.random() * 10) % 2)
@@ -280,12 +280,11 @@ for (let i = 0; i < 50; i += 1) {
 const DataSet = require('@antv/data-set')
 
 const sourceData = [
-  { item: '家用电器', count: 32.2 },
-  { item: '食用酒水', count: 21 },
-  { item: '个护健康', count: 17 },
-  { item: '服饰箱包', count: 13 },
-  { item: '母婴产品', count: 9 },
-  { item: '其他', count: 7.8 }
+  { item: '凉菜', count: 32.2 },
+  { item: '热菜', count: 21 },
+  { item: '主食', count: 17 },
+  { item: '酒水', count: 13 },
+  { item: '其他', count: 18.8 }
 ]
 
 const pieScale = [{
